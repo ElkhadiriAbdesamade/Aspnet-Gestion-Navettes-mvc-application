@@ -1,0 +1,81 @@
+﻿@model Gestion_Navettes.Models.societe
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+
+<form action="/societes/ajouter" id="f" method="post" novalidate="novalidate">
+
+    @Html.AntiForgeryToken()
+
+    <div class="container2">
+        <h2 style="text-align:center">Add society</h2>
+        <div class="form-horizontal">
+
+            <hr class="style-seven" />
+
+
+
+
+            @{
+                var st = ViewBag.Notification;
+                if (st.ToString() != "")
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Error!   </strong>@ViewBag.Notification
+
+                    </div>
+                }
+            }
+
+
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="nom_soc" name="nom_soc" value="@Html.DisplayFor(model => model.nom_soc)" required="required" />
+                    <label for="nom_soc">society Name :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.nom_soc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="adrs_soc" name="adrs_soc" value="@Html.DisplayFor(model => model.adrs_soc)" required="required" />
+                    <label for="adrs_soc">society Address :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.adrs_soc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="ville_soc" name="ville_soc" value="@Html.DisplayFor(model => model.ville_soc)" required="required" />
+                    <label for="ville_soc">society City :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.ville_soc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <a href="/societes" class="button4" style="background-color:#2B9CB8;float:right;margin-top:50px;">Back to List</a>
+                    <a onclick="document.getElementById('f').submit();" class="button4" style="background-color:#218838;cursor:pointer;width:20%;float:right;margin-top:50px;">Add</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+  
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

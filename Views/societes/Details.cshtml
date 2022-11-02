@@ -1,0 +1,46 @@
+﻿@model Gestion_Navettes.Models.societe
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+<div class="container2">
+    <h2 style="text-align:center">society Details</h2>
+
+    <hr class="style-seven" />
+    <dl>
+        <dt>
+            society Name :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_soc)
+        </dd>
+
+        <dt>
+            society Address :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adrs_soc)
+        </dd>
+
+        <dt>
+            society City :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ville_soc)
+        </dd>
+
+    </dl>
+
+    <p>
+        <a href="/societes/modifier/@Html.DisplayFor(model => model.id_soc)" class="button4" style="background-color:#FFC107;">Edit</a>
+        |
+        <a href="/societes" class="button4" style="background-color:#2B9CB8;">Back to List</a>
+    </p>
+</div>
+

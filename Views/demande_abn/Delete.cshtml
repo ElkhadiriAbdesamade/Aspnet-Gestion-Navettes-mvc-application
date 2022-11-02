@@ -1,0 +1,64 @@
+﻿@model Gestion_Navettes.Models.demande_abn
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="container1">
+    <h2 style="text-align:center">Delete Request</h2>
+    <h3>Are you sure you want to delete this?</h3>
+    <hr class="style-seven" />
+    <dl>
+        <dt>
+            Departure city
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ville_depart)
+
+        </dd>
+
+        <dt>
+            Arrival city
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ville_arrive)
+        </dd>
+
+        <dt>
+            Departure Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_depart)
+        </dd>
+
+        <dt>
+            Arrival Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_arrive)
+        </dd>
+
+        <dt>
+            Numbre Of Request
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nbr_dm)
+        </dd>
+
+    </dl>
+
+    <form action="/demande/suppr/@Html.DisplayFor(model => model.id_dm)" id="f" method="post" novalidate="novalidate">
+        @Html.AntiForgeryToken()
+
+        <p>
+            <a onclick="document.getElementById('f').submit();" class="button4" style="background-color:#C82333;cursor:pointer;">Delete</a>
+            |
+            <a href="/" class="button4" style="background-color:#2B9CB8;">Back to List</a>
+        </p>
+    </form>
+</div>

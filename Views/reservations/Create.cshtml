@@ -1,0 +1,97 @@
+﻿@model Gestion_Navettes.Models.reservation
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+<form action="/reservations/ajouter_a" id="f" method="post" novalidate="novalidate" enctype="multipart/form-data">
+
+    @Html.AntiForgeryToken()
+
+    <div class="container2">
+        <h2 style="text-align:center">Add reservation</h2>
+        <div class="form-horizontal">
+
+            <hr class="style-seven" />
+
+            @{
+                var st = ViewBag.Notification;
+                if (st.ToString() != "")
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Error!   </strong>@ViewBag.Notification
+
+                    </div>
+                }
+            }
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+           
+            <div class="group">
+                <h4 style="color:#2196F3">Subscription :</h4>
+                <div class="select" style="width:100%">
+                    @Html.DropDownList("id_abn")
+                </div>
+            </div>
+            
+
+            <div class="group">
+                <h4 style="color:#2196F3">User :</h4>
+                <div class="select" style="width:100%">
+                    @Html.DropDownList("id_user")
+                </div>
+            </div>
+
+
+            <div class="centered">
+                <div class="group">
+                    <input type="date" id="date_res" name="date_res" required="required" />
+                    <label for="date_depart">Reservation Date :</label>
+                    <div class="bar"></div>
+
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <a href="/reservations" class="button4" style="background-color:#2B9CB8;float:right;margin-top:50px;">Back to List</a>
+                    <a onclick="document.getElementById('f').submit();" class="button4" style="background-color:#218838;cursor:pointer;width:20%;float:right;margin-top:50px;">Add</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+
+    function setInputDate(_id) {
+        var _dat = document.querySelector(_id);
+        var hoy = new Date(),
+            d = hoy.getDate(),
+            m = hoy.getMonth() + 1,
+            y = hoy.getFullYear(),
+            data;
+
+        if (d < 10) {
+            d = "0" + d;
+        };
+        if (m < 10) {
+            m = "0" + m;
+        };
+
+        data = y + "-" + m + "-" + d;
+        console.log(data);
+        _dat.value = data;
+    };
+    setInputDate("#date_res");
+</script>

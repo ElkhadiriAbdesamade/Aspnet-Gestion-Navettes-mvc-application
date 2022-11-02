@@ -1,0 +1,198 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion Navette</title>
+    <link rel='stylesheet' href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://startbootstrap.com/templates/agency/font-awesome-4.1.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+
+
+    @Styles.Render("~/MyCSS")
+
+</head>
+<body id="page-top" class="index" data-pinterest-extension-installed="cr1.3.4">
+
+    <!-- ***** Header Area Start ***** -->
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top navbar-shrink">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="/">shuttle management</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden active">
+                        <a href="#page-top"></a>
+                    </li>
+
+                    <li class="">
+                        <a class="page-scroll" href="/#abn">subscriptions</a>
+                    </li>
+                    @{
+                        String role = Gestion_Navettes.MyRoleProvider.Getrole.getrole(HttpContext.Current.User.Identity.Name);
+
+
+                        if (User.Identity.IsAuthenticated && role == "Admin")
+                        {
+
+                            <li class="dropdown">
+                                <a class="page-scroll">Menu<span class="caret"></span></a>
+                                <div class="dropdown-content">
+                                    <a class="dropdown-item" href="/reservations">reservations</a>
+                                    <a class="dropdown-item" href="/demande">requests</a>
+                                    <a class="dropdown-item" href="/societes">societys</a>
+                                    <a class="dropdown-item" href="/Vehicules">vehicles</a>
+                                    <a class="dropdown-item" href="/users">Subscribers</a>
+                                </div>
+                            </li>
+                        }
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="dropdown">
+                                <a class="page-scroll">@(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")<span class="caret"></span></a>
+                                <div class="dropdown-content">
+                                    @if (role == "User")
+                                    {
+                                        <a class="dropdown-item" href="/reservations/MyReserve">My reservations</a>
+                                        <a class="dropdown-item" href="/demande/MyRequest">My requests</a>
+                                    }
+                                    <a class="dropdown-item" href="@Url.Action("SignOut", "auth")">Logout</a>
+
+                                </div>
+                            </li>
+
+
+
+                        }
+                        else
+                        {
+                            <li class="">
+                                <a class="page-scroll" href="/Login">Login</a>
+                            </li>
+                            <li class="">
+                                <a class="page-scroll" href="/register">Sign up</a>
+                            </li>
+                        }
+
+                        if (role != "Admin")
+                        {
+                            <li class="">
+                                <a class="page-scroll" href="/#contact">Add Request</a>
+                            </li>
+                        }
+
+
+                    }
+                </ul>
+            </div>
+
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!-- ***** Header Area End ***** -->
+    <!-- Back to top button -->
+    <a id="button" style="text-decoration:none"></a>
+
+    @RenderBody()
+
+
+    <!-- ***** Footer Start ***** -->
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright © El khadiri Abde Samade @DateTime.Now.Year</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li>
+                            <a href="#"><i class="fa fa-twitter" style="margin-top: 8px;"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-facebook" style="margin-top: 8px;"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-linkedin" style="margin-top: 8px;"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li>
+                            <a href="#">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="#">Terms of Use</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    @Scripts.Render("~/MyJS")
+
+    @RenderSection("scripts", required: false)
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="https://raw.githubusercontent.com/IronSummitMedia/startbootstrap/gh-pages/templates/agency/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://raw.githubusercontent.com/IronSummitMedia/startbootstrap/gh-pages/templates/agency/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="https://raw.githubusercontent.com/IronSummitMedia/startbootstrap/gh-pages/templates/agency/js/classie.js"></script>
+    <script src="https://raw.githubusercontent.com/IronSummitMedia/startbootstrap/gh-pages/templates/agency/js/cbpAnimatedHeader.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="https://raw.githubusercontent.com/IronSummitMedia/startbootstrap/gh-pages/templates/agency/js/jqBootstrapValidation.js"></script>
+    <script src="https://raw.githubusercontent.com/IronSummitMedia/startbootstrap/gh-pages/templates/agency/js/contact_me.js"></script>
+
+
+    <span style="height: 20px; width: 40px; min-height: 20px; min-width: 40px; position: absolute; opacity: 0.85; z-index: 8675309; display: none; cursor: pointer; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAADU0lEQVR42s2WXUhTYRjHz0VEVPRFUGmtVEaFUZFhHxBhsotCU5JwBWEf1EWEEVHQx4UfFWYkFa2biPJiXbUta33OXFtuUXMzJ4bK3Nqay7m5NeZq6h/tPQ+xU20zugjOxR/+7/O8539+5znnwMtNTExwJtMb3L/fiLv3botCSmUjeCaejTOb39AiFothfHxcFIrHY8RksZjBsckJcOIRMfFsHD/SsbExUYpnI8DR0dGUGjSb0byhEJp5Uqg5CTSzc2CQleJbMEj9/ywBcGRkJEk9DQqouEVQT1sK444yWI9UonmTjGqauVLEIlHa9x8lAMbj8SSpp0rwKGMVvg8P46vbg0C7na8z8JsMcgHe7jlEa+edRhiLy8n/TUMfu6EvLElk+U0WtGwrTrdfAGQf5J8iiK4LVzDU28t8JtMSocf8E+l68myaNFXm/6rXslLK7ay5TOunuRvZWpJuvwAYjUaTpOIWoquuAZ219RTaxKYp9BbjycoN5FvL9qH9TBX5rvoGdJythvXYSTxdtRnWylO/ZdqrLsGwszzhWQ593z2KlAwCYCQSSZJ6ehZ0W7bD9VBLgN0NCqr3qR7R2rBrL3pu3Sb/7nDlz2uy6cG0OXk0GTbZXzNp8trsPAQdTj6frlWzN2DcXZGKQQAMh8NJ6rpyHe+PnkCr/CAFdZyvpfpjuvkifLF9wIt1Wwlo0OHie1RvWrKa93RjzfzliTzPKz3ltB0/Tevmwp14wGUgHAzSOoUEwFAolFaaBSuhnslPRkJexUJtZ6v5HtUeLswl33n1BgEY5fvhs9sJ3FAiT+QYyyvoAQJuD0KBAFRTJNAuz5/s3gJgMBhMJwrVFRThM5tY5zUF/A4X1f2fvQTRLCuBreoim0YmAbqNJryvPEXeeq46kaNdkQ/1HCncbJKPs9ZSv2VHGfWsZ2hfkhKAfr8/pdxWKx4wwD69PmVfNSOL+lr2w+gYqHpWDtXt1xQ8AMlWU0e1lqLd/APRHoP8AJqWrQG9gYxcPMsvSJUvAA4MDKTUJ7MZLaVy8v+qT21tcDx/OemePr0RTkNrur4A6PP5xCgBsL+/X4wiQDpuuVxOeL1eMYmYeDY6sOp0z+B0OuHxeEQhxkJMFosJiSO/UinOI/8Pc+l7KKArAT8AAAAASUVORK5CYII=);"></span>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'></script>
+    <script src="~/Scripts/js/script.js"></script>
+    <script>
+
+        setTimeout(function () {
+            document.getElementById('hideMe').className = 'hide';
+        }, 5000);
+    </script>
+
+</body>
+</html>
+

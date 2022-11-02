@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Gestion_Navettes.Models.users>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="container1">
+    <h2 style="text-align:center">Users</h2>
+
+    <hr class="style-seven" />
+
+
+
+
+    @{
+        if (Model.Count() == 0)
+        {
+            <div class="alert alert-info col-12" style=" margin-top: 100px;">
+                <strong>
+                    <h1 style="text-align: center;">No User Found!</h1>
+                </strong>
+            </div>
+        }
+        else
+        {
+            var st = ViewBag.Notification;
+            if (st.ToString() != "")
+            {
+                <div class="alert alert-danger"  role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Error!   </strong>@ViewBag.Notification
+
+                </div>
+            }
+
+            <table class="styled-table" width="800px">
+                <tr>
+                    <th>
+                        User Name
+                    </th>
+                    <th>
+                        User Email
+                    </th>
+                    <th>
+                        User Phone
+                    </th>
+                    <th>
+                        User Login
+                    </th>
+                    <th>
+                        User Password
+                    </th>
+                    <th>
+                        User Role
+                    </th>
+                    <th style="text-align:center;">Action</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="active-row">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nom_complet)
+                        </td>
+                        <td>
+                            @item.email
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tele)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.lgn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.psw)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.roles)
+                        </td>
+                        <td align="center">
+                            <a href="/users/details/@Html.DisplayFor(modelItem => item.id_user)" class="view" title="View" data-toggle="tooltip"><i style="color: #03A9F4;" class="material-icons">&#xE417;</i></a>
+                            <a href="/users/modifier/@Html.DisplayFor(modelItem => item.id_user)" class="edit" title="Edit" data-toggle="tooltip"><i style="color: #FFC107;" class="material-icons">&#xE254;</i></a>
+                            <a href="/users/suppr/@Html.DisplayFor(modelItem => item.id_user)" class="delete" title="Delete" data-toggle="tooltip"><i style="color: #C82333;" class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        }
+    }
+
+
+</div>

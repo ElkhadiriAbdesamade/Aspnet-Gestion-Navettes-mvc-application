@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Gestion_NavettesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="abonnement">
+          <Key>
+            <PropertyRef Name="id_abn" />
+          </Key>
+          <Property Name="id_abn" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ville_depart" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ville_arrive" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="date_depart" Type="datetime" Nullable="false" />
+          <Property Name="date_arrive" Type="datetime" Nullable="false" />
+          <Property Name="abn_image" Type="varchar" MaxLength="100" />
+          <Property Name="heur_depart" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="descr" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="type_abn" Type="int" Nullable="false" />
+          <Property Name="id_vh" Type="int" />
+          <Property Name="id_soc" Type="int" />
+          <Property Name="prix" Type="float" />
+          <Property Name="heur_arrive" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="demande_abn">
+          <Key>
+            <PropertyRef Name="id_dm" />
+          </Key>
+          <Property Name="id_dm" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ville_depart" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ville_arrive" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="nbr_dm" Type="int" />
+          <Property Name="date_depart" Type="datetime" />
+          <Property Name="date_arrive" Type="datetime" />
+        </EntityType>
+        <EntityType Name="demande_user">
+          <Key>
+            <PropertyRef Name="id_d" />
+          </Key>
+          <Property Name="id_d" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_dm" Type="int" />
+          <Property Name="id_user" Type="int" />
+          <Property Name="date_d" Type="datetime" />
+        </EntityType>
+        <EntityType Name="reservation">
+          <Key>
+            <PropertyRef Name="id_res" />
+          </Key>
+          <Property Name="id_res" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_abn" Type="int" />
+          <Property Name="id_user" Type="int" />
+          <Property Name="date_res" Type="datetime" />
+        </EntityType>
+        <EntityType Name="societe">
+          <Key>
+            <PropertyRef Name="id_soc" />
+          </Key>
+          <Property Name="id_soc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_soc" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="adrs_soc" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ville_soc" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_complet" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="tele" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="lgn" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="psw" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="roles" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vehicule">
+          <Key>
+            <PropertyRef Name="id_vh" />
+          </Key>
+          <Property Name="id_vh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_vh" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="capacite_vh" Type="int" Nullable="false" />
+          <Property Name="marque_vh" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="modele_vh" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="immatricul_vh" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__abonnemen__id_so__35BCFE0A">
+          <End Role="societe" Type="Self.societe" Multiplicity="0..1" />
+          <End Role="abonnement" Type="Self.abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="societe">
+              <PropertyRef Name="id_soc" />
+            </Principal>
+            <Dependent Role="abonnement">
+              <PropertyRef Name="id_soc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__abonnemen__id_vh__34C8D9D1">
+          <End Role="vehicule" Type="Self.vehicule" Multiplicity="0..1" />
+          <End Role="abonnement" Type="Self.abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vehicule">
+              <PropertyRef Name="id_vh" />
+            </Principal>
+            <Dependent Role="abonnement">
+              <PropertyRef Name="id_vh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__demande_u__id_dm__5DCAEF64">
+          <End Role="demande_abn" Type="Self.demande_abn" Multiplicity="0..1" />
+          <End Role="demande_user" Type="Self.demande_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="demande_abn">
+              <PropertyRef Name="id_dm" />
+            </Principal>
+            <Dependent Role="demande_user">
+              <PropertyRef Name="id_dm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__demande_u__id_us__5EBF139D">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="demande_user" Type="Self.demande_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="demande_user">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__reservati__id_ab__398D8EEE">
+          <End Role="abonnement" Type="Self.abonnement" Multiplicity="0..1" />
+          <End Role="reservation" Type="Self.reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="abonnement">
+              <PropertyRef Name="id_abn" />
+            </Principal>
+            <Dependent Role="reservation">
+              <PropertyRef Name="id_abn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__reservati__id_us__3A81B327">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="reservation" Type="Self.reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="reservation">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Gestion_NavettesModelStoreContainer">
+          <EntitySet Name="abonnement" EntityType="Self.abonnement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="demande_abn" EntityType="Self.demande_abn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="demande_user" EntityType="Self.demande_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="reservation" EntityType="Self.reservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="societe" EntityType="Self.societe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vehicule" EntityType="Self.vehicule" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__abonnemen__id_so__35BCFE0A" Association="Self.FK__abonnemen__id_so__35BCFE0A">
+            <End Role="societe" EntitySet="societe" />
+            <End Role="abonnement" EntitySet="abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__abonnemen__id_vh__34C8D9D1" Association="Self.FK__abonnemen__id_vh__34C8D9D1">
+            <End Role="vehicule" EntitySet="vehicule" />
+            <End Role="abonnement" EntitySet="abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__demande_u__id_dm__5DCAEF64" Association="Self.FK__demande_u__id_dm__5DCAEF64">
+            <End Role="demande_abn" EntitySet="demande_abn" />
+            <End Role="demande_user" EntitySet="demande_user" />
+          </AssociationSet>
+          <AssociationSet Name="FK__demande_u__id_us__5EBF139D" Association="Self.FK__demande_u__id_us__5EBF139D">
+            <End Role="users" EntitySet="users" />
+            <End Role="demande_user" EntitySet="demande_user" />
+          </AssociationSet>
+          <AssociationSet Name="FK__reservati__id_ab__398D8EEE" Association="Self.FK__reservati__id_ab__398D8EEE">
+            <End Role="abonnement" EntitySet="abonnement" />
+            <End Role="reservation" EntitySet="reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__reservati__id_us__3A81B327" Association="Self.FK__reservati__id_us__3A81B327">
+            <End Role="users" EntitySet="users" />
+            <End Role="reservation" EntitySet="reservation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Gestion_NavettesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="abonnement">
+          <Key>
+            <PropertyRef Name="id_abn" />
+          </Key>
+          <Property Name="id_abn" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ville_depart" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ville_arrive" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date_depart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_arrive" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="abn_image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="heur_depart" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descr" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="type_abn" Type="Int32" Nullable="false" />
+          <Property Name="id_vh" Type="Int32" />
+          <Property Name="id_soc" Type="Int32" />
+          <Property Name="prix" Type="Double" />
+          <Property Name="heur_arrive" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="societe" Relationship="Self.FK__abonnemen__id_so__35BCFE0A" FromRole="abonnement" ToRole="societe" />
+          <NavigationProperty Name="vehicule" Relationship="Self.FK__abonnemen__id_vh__34C8D9D1" FromRole="abonnement" ToRole="vehicule" />
+          <NavigationProperty Name="reservation" Relationship="Self.FK__reservati__id_ab__398D8EEE" FromRole="abonnement" ToRole="reservation" />
+        </EntityType>
+        <EntityType Name="demande_abn">
+          <Key>
+            <PropertyRef Name="id_dm" />
+          </Key>
+          <Property Name="id_dm" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ville_depart" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ville_arrive" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nbr_dm" Type="Int32" />
+          <Property Name="date_depart" Type="DateTime" Precision="3" />
+          <Property Name="date_arrive" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="demande_user" Relationship="Self.FK__demande_u__id_dm__5DCAEF64" FromRole="demande_abn" ToRole="demande_user" />
+        </EntityType>
+        <EntityType Name="demande_user">
+          <Key>
+            <PropertyRef Name="id_d" />
+          </Key>
+          <Property Name="id_d" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_dm" Type="Int32" />
+          <Property Name="id_user" Type="Int32" />
+          <Property Name="date_d" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="demande_abn" Relationship="Self.FK__demande_u__id_dm__5DCAEF64" FromRole="demande_user" ToRole="demande_abn" />
+          <NavigationProperty Name="users" Relationship="Self.FK__demande_u__id_us__5EBF139D" FromRole="demande_user" ToRole="users" />
+        </EntityType>
+        <EntityType Name="reservation">
+          <Key>
+            <PropertyRef Name="id_res" />
+          </Key>
+          <Property Name="id_res" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_abn" Type="Int32" />
+          <Property Name="id_user" Type="Int32" />
+          <Property Name="date_res" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="abonnement" Relationship="Self.FK__reservati__id_ab__398D8EEE" FromRole="reservation" ToRole="abonnement" />
+          <NavigationProperty Name="users" Relationship="Self.FK__reservati__id_us__3A81B327" FromRole="reservation" ToRole="users" />
+        </EntityType>
+        <EntityType Name="societe">
+          <Key>
+            <PropertyRef Name="id_soc" />
+          </Key>
+          <Property Name="id_soc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_soc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adrs_soc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ville_soc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="abonnement" Relationship="Self.FK__abonnemen__id_so__35BCFE0A" FromRole="societe" ToRole="abonnement" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_complet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tele" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lgn" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="psw" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="roles" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="demande_user" Relationship="Self.FK__demande_u__id_us__5EBF139D" FromRole="users" ToRole="demande_user" />
+          <NavigationProperty Name="reservation" Relationship="Self.FK__reservati__id_us__3A81B327" FromRole="users" ToRole="reservation" />
+        </EntityType>
+        <EntityType Name="vehicule">
+          <Key>
+            <PropertyRef Name="id_vh" />
+          </Key>
+          <Property Name="id_vh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_vh" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="capacite_vh" Type="Int32" Nullable="false" />
+          <Property Name="marque_vh" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="modele_vh" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="immatricul_vh" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="abonnement" Relationship="Self.FK__abonnemen__id_vh__34C8D9D1" FromRole="vehicule" ToRole="abonnement" />
+        </EntityType>
+        <Association Name="FK__abonnemen__id_so__35BCFE0A">
+          <End Role="societe" Type="Self.societe" Multiplicity="0..1" />
+          <End Role="abonnement" Type="Self.abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="societe">
+              <PropertyRef Name="id_soc" />
+            </Principal>
+            <Dependent Role="abonnement">
+              <PropertyRef Name="id_soc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__abonnemen__id_vh__34C8D9D1">
+          <End Role="vehicule" Type="Self.vehicule" Multiplicity="0..1" />
+          <End Role="abonnement" Type="Self.abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vehicule">
+              <PropertyRef Name="id_vh" />
+            </Principal>
+            <Dependent Role="abonnement">
+              <PropertyRef Name="id_vh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__reservati__id_ab__398D8EEE">
+          <End Role="abonnement" Type="Self.abonnement" Multiplicity="0..1" />
+          <End Role="reservation" Type="Self.reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="abonnement">
+              <PropertyRef Name="id_abn" />
+            </Principal>
+            <Dependent Role="reservation">
+              <PropertyRef Name="id_abn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__demande_u__id_dm__5DCAEF64">
+          <End Role="demande_abn" Type="Self.demande_abn" Multiplicity="0..1" />
+          <End Role="demande_user" Type="Self.demande_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="demande_abn">
+              <PropertyRef Name="id_dm" />
+            </Principal>
+            <Dependent Role="demande_user">
+              <PropertyRef Name="id_dm" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__demande_u__id_us__5EBF139D">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="demande_user" Type="Self.demande_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="demande_user">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__reservati__id_us__3A81B327">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="reservation" Type="Self.reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="reservation">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Gestion_NavettesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="abonnement" EntityType="Self.abonnement" />
+          <EntitySet Name="demande_abn" EntityType="Self.demande_abn" />
+          <EntitySet Name="demande_user" EntityType="Self.demande_user" />
+          <EntitySet Name="reservation" EntityType="Self.reservation" />
+          <EntitySet Name="societe" EntityType="Self.societe" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <EntitySet Name="vehicule" EntityType="Self.vehicule" />
+          <AssociationSet Name="FK__abonnemen__id_so__35BCFE0A" Association="Self.FK__abonnemen__id_so__35BCFE0A">
+            <End Role="societe" EntitySet="societe" />
+            <End Role="abonnement" EntitySet="abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__abonnemen__id_vh__34C8D9D1" Association="Self.FK__abonnemen__id_vh__34C8D9D1">
+            <End Role="vehicule" EntitySet="vehicule" />
+            <End Role="abonnement" EntitySet="abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__reservati__id_ab__398D8EEE" Association="Self.FK__reservati__id_ab__398D8EEE">
+            <End Role="abonnement" EntitySet="abonnement" />
+            <End Role="reservation" EntitySet="reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__demande_u__id_dm__5DCAEF64" Association="Self.FK__demande_u__id_dm__5DCAEF64">
+            <End Role="demande_abn" EntitySet="demande_abn" />
+            <End Role="demande_user" EntitySet="demande_user" />
+          </AssociationSet>
+          <AssociationSet Name="FK__demande_u__id_us__5EBF139D" Association="Self.FK__demande_u__id_us__5EBF139D">
+            <End Role="users" EntitySet="users" />
+            <End Role="demande_user" EntitySet="demande_user" />
+          </AssociationSet>
+          <AssociationSet Name="FK__reservati__id_us__3A81B327" Association="Self.FK__reservati__id_us__3A81B327">
+            <End Role="users" EntitySet="users" />
+            <End Role="reservation" EntitySet="reservation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Gestion_NavettesModelStoreContainer" CdmEntityContainer="Gestion_NavettesEntities">
+          <EntitySetMapping Name="abonnement">
+            <EntityTypeMapping TypeName="Gestion_NavettesModel.abonnement">
+              <MappingFragment StoreEntitySet="abonnement">
+                <ScalarProperty Name="id_abn" ColumnName="id_abn" />
+                <ScalarProperty Name="ville_depart" ColumnName="ville_depart" />
+                <ScalarProperty Name="ville_arrive" ColumnName="ville_arrive" />
+                <ScalarProperty Name="date_depart" ColumnName="date_depart" />
+                <ScalarProperty Name="date_arrive" ColumnName="date_arrive" />
+                <ScalarProperty Name="abn_image" ColumnName="abn_image" />
+                <ScalarProperty Name="heur_depart" ColumnName="heur_depart" />
+                <ScalarProperty Name="descr" ColumnName="descr" />
+                <ScalarProperty Name="type_abn" ColumnName="type_abn" />
+                <ScalarProperty Name="id_vh" ColumnName="id_vh" />
+                <ScalarProperty Name="id_soc" ColumnName="id_soc" />
+                <ScalarProperty Name="prix" ColumnName="prix" />
+                <ScalarProperty Name="heur_arrive" ColumnName="heur_arrive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="demande_abn">
+            <EntityTypeMapping TypeName="Gestion_NavettesModel.demande_abn">
+              <MappingFragment StoreEntitySet="demande_abn">
+                <ScalarProperty Name="id_dm" ColumnName="id_dm" />
+                <ScalarProperty Name="ville_depart" ColumnName="ville_depart" />
+                <ScalarProperty Name="ville_arrive" ColumnName="ville_arrive" />
+                <ScalarProperty Name="nbr_dm" ColumnName="nbr_dm" />
+                <ScalarProperty Name="date_depart" ColumnName="date_depart" />
+                <ScalarProperty Name="date_arrive" ColumnName="date_arrive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="demande_user">
+            <EntityTypeMapping TypeName="Gestion_NavettesModel.demande_user">
+              <MappingFragment StoreEntitySet="demande_user">
+                <ScalarProperty Name="id_d" ColumnName="id_d" />
+                <ScalarProperty Name="id_dm" ColumnName="id_dm" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="date_d" ColumnName="date_d" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reservation">
+            <EntityTypeMapping TypeName="Gestion_NavettesModel.reservation">
+              <MappingFragment StoreEntitySet="reservation">
+                <ScalarProperty Name="id_res" ColumnName="id_res" />
+                <ScalarProperty Name="id_abn" ColumnName="id_abn" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="date_res" ColumnName="date_res" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="societe">
+            <EntityTypeMapping TypeName="Gestion_NavettesModel.societe">
+              <MappingFragment StoreEntitySet="societe">
+                <ScalarProperty Name="id_soc" ColumnName="id_soc" />
+                <ScalarProperty Name="nom_soc" ColumnName="nom_soc" />
+                <ScalarProperty Name="adrs_soc" ColumnName="adrs_soc" />
+                <ScalarProperty Name="ville_soc" ColumnName="ville_soc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="Gestion_NavettesModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="nom_complet" ColumnName="nom_complet" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="tele" ColumnName="tele" />
+                <ScalarProperty Name="lgn" ColumnName="lgn" />
+                <ScalarProperty Name="psw" ColumnName="psw" />
+                <ScalarProperty Name="roles" ColumnName="roles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vehicule">
+            <EntityTypeMapping TypeName="Gestion_NavettesModel.vehicule">
+              <MappingFragment StoreEntitySet="vehicule">
+                <ScalarProperty Name="id_vh" ColumnName="id_vh" />
+                <ScalarProperty Name="nom_vh" ColumnName="nom_vh" />
+                <ScalarProperty Name="capacite_vh" ColumnName="capacite_vh" />
+                <ScalarProperty Name="marque_vh" ColumnName="marque_vh" />
+                <ScalarProperty Name="modele_vh" ColumnName="modele_vh" />
+                <ScalarProperty Name="immatricul_vh" ColumnName="immatricul_vh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

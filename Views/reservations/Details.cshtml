@@ -1,0 +1,46 @@
+﻿@model Gestion_Navettes.Models.reservation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+        
+<div class="container2">
+    <h2 style="text-align:center">reservation Details</h2>
+
+    <hr class="style-seven" />
+    <dl style="height:300px">
+        <dt>
+            Reservation Date :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_res)
+        </dd>
+
+        <dt style="height:200px">
+            subscription :
+        </dt>
+
+        <dd style="height:200px">
+            ID: @Html.DisplayFor(model => model.abonnement.id_abn)<br />
+            From "@Html.DisplayFor(model => model.abonnement.ville_depart)" To "@Html.DisplayFor(model => model.abonnement.ville_arrive)"<br />
+            <img src="~/Images/@Html.DisplayFor(model => model.abonnement.abn_image)" width="100" height="100" />
+        </dd>
+
+        <dt>
+            User Name :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.users.nom_complet)
+        </dd>
+
+    </dl>
+    <p>
+        
+        <a href="/reservations" class="button4" style="background-color:#2B9CB8;">Back to List</a>
+    </p>
+</div>
+

@@ -1,0 +1,51 @@
+﻿@model Gestion_Navettes.Models.societe
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+
+
+<div class="container1">
+    <h2 style="text-align:center">Delete Society</h2>
+    <h3>Are you sure you want to delete this?</h3>
+    <hr class="style-seven" />
+    <dl>
+        <dt>
+            society Name :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_soc)
+        </dd>
+
+        <dt>
+            society Address :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adrs_soc)
+        </dd>
+
+        <dt>
+            society City :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ville_soc)
+        </dd>
+
+    </dl>
+    <form action="/societes/suppr/@Html.DisplayFor(model => model.id_soc)" id="f" method="post" novalidate="novalidate">
+        @Html.AntiForgeryToken()
+
+        <p>
+            <a onclick="document.getElementById('f').submit();" class="button4" style="background-color:#C82333;cursor:pointer;">Delete</a>
+            |
+            <a href="/societes" class="button4" style="background-color:#2B9CB8;">Back to List</a>
+        </p>
+    </form>
+
+</div>
+

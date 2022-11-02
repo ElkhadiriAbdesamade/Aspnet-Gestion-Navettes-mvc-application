@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Gestion_Navettes.Models.reservation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+
+<div class="container1">
+    <h2 style="text-align:center">reservations</h2>
+
+    <hr class="style-seven" />
+    @{
+        String role = Gestion_Navettes.MyRoleProvider.Getrole.getrole(HttpContext.Current.User.Identity.Name);
+
+
+        if (User.Identity.IsAuthenticated && role == "Admin")
+        {
+            <p> <a href="/reservations/ajouter_a" class="button4" style="background-color:#2B9CB8;float: right;margin-bottom:50px">Create New</a></p>
+        }
+    }
+
+
+    @{
+        if (Model.Count() == 0)
+        {
+            <div class="alert alert-info col-12" style=" margin-top: 100px;">
+                <strong>
+                    <h1 style="text-align: center;">No reservation Found!</h1>
+                </strong>
+            </div>
+        }
+        else
+        {
+
+            <table class="styled-table" width="800px">
+                <tr>
+                    <th>
+                        reservations Date
+                    </th>
+                    <th>
+                        subscription
+                    </th>
+                    <th>
+                        User Name
+                    </th>
+                    <th>Action</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="active-row">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.date_res)
+                        </td>
+                        <td>
+                            ID: @Html.DisplayFor(modelItem => item.abonnement.id_abn)<br />
+                            From "@Html.DisplayFor(modelItem => item.abonnement.ville_depart)" To "@Html.DisplayFor(modelItem => item.abonnement.ville_arrive)"<br />
+                            <img src="~/Images/@item.abonnement.abn_image" width="100" height="100" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.users.nom_complet)
+                        </td>
+                        <td>
+                            @if (User.Identity.IsAuthenticated && role == "Admin")
+                            {
+                            <a href="/reservations/details/@Html.DisplayFor(modelItem => item.id_res)" class="view" title="View" data-toggle="tooltip"><i style="color: #03A9F4;" class="material-icons">&#xE417;</i></a>                            
+                            }
+                            <a href="/reservations/suppr/@Html.DisplayFor(modelItem => item.id_res)" class="delete" title="Delete" data-toggle="tooltip"><i style="color: #C82333;" class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        }
+    }
+
+
+</div>

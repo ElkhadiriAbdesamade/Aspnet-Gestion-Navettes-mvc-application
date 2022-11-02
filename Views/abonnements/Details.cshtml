@@ -1,0 +1,108 @@
+﻿@model Gestion_Navettes.Models.abonnement
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container2">
+    <h2 style="text-align:center">subscription Details</h2>
+
+    <hr class="style-seven" />
+    <dl>
+        <dt>
+            Departure city :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ville_depart)
+        </dd>
+
+        <dt>
+            Arrival city :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ville_arrive)
+        </dd>
+
+        <dt>
+            Departure Date :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_depart)
+        </dd>
+
+        <dt>
+            Arrival Date :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_arrive)
+        </dd>
+
+        <dt>
+            Price :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prix)
+        </dd>
+
+        <dt style="height:150px">
+            Cover :
+        </dt>
+
+        <dd style="height:150px">
+            <img src="~/Images/@Html.DisplayFor(model => model.abn_image)" width="100" height="100" />
+        </dd>
+
+        <dt>
+            Departure hour :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.heur_depart)
+        </dd>
+
+        <dt>
+            Arrival hour :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.heur_arrive)
+        </dd>
+
+        <dt>
+            Description :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descr)
+        </dd>
+
+        <dt>
+            Society :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.societe.nom_soc)
+        </dd>
+
+        <dt>
+            Vehicle :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vehicule.nom_vh)
+        </dd>
+
+    </dl>
+
+    <p>
+        <a href="/modifier/@Html.DisplayFor(model => model.id_abn)" class="button4" style="background-color:#FFC107;">Edit</a>
+        |
+        <a href="/" class="button4" style="background-color:#2B9CB8;">Back to List</a>
+    </p>
+</div>
+

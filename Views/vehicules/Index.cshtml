@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Gestion_Navettes.Models.vehicule>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+
+<div class="container1">
+    <h2 style="text-align:center">Vehicles</h2>
+
+    <hr class="style-seven" />
+
+    <p> <a href="/Vehicules/ajouter" class="button4" style="background-color:#2B9CB8;float: right;margin-bottom:50px">Create New</a></p>
+
+
+
+    @{
+        if (Model.Count() == 0)
+        {
+            <div class="alert alert-info col-12" style=" margin-top: 100px;">
+                <strong>
+                    <h1 style="text-align: center;">No Vehicle Found!</h1>
+                </strong>
+            </div>
+        }
+        else
+        {
+            var st = ViewBag.Notification;
+            if (st.ToString() != "")
+            {
+                <div class="alert alert-danger" style=" position: absolute;" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Error!   </strong>@ViewBag.Notification
+
+                </div>
+            }
+
+
+            <table class="styled-table" width="800px">
+                <tr>
+                    <th>
+                        vehicles Name
+                    </th>
+                    <th>
+                        vehicles capacity
+                    </th>
+                    <th>
+                        vehicles brand
+                    </th>
+                    <th>
+                        vehicles model
+                    </th>
+                    <th>
+                        registration number
+                    </th>
+                    <th style="text-align:center;">Action</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="active-row">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nom_vh)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.capacite_vh)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.marque_vh)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.modele_vh)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.immatricul_vh)
+                        </td>
+                        <td align="center">
+                            <a href="/Vehicules/details/@Html.DisplayFor(modelItem => item.id_vh)" class="view" title="View" data-toggle="tooltip"><i style="color: #03A9F4;" class="material-icons">&#xE417;</i></a>
+                            <a href="/Vehicules/modifier/@Html.DisplayFor(modelItem => item.id_vh)" class="edit" title="Edit" data-toggle="tooltip"><i style="color: #FFC107;" class="material-icons">&#xE254;</i></a>
+                            <a href="Vehicules/suppr/@Html.DisplayFor(modelItem => item.id_vh)" class="delete" title="Delete" data-toggle="tooltip"><i style="color: #C82333;" class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        }
+    }
+
+</div>

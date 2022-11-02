@@ -1,0 +1,67 @@
+﻿@model Gestion_Navettes.Models.demande_abn
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<form action="/demande/modifier/@Model.id_dm" id="f" method="post" novalidate="novalidate" enctype="multipart/form-data">
+
+    @Html.AntiForgeryToken()
+
+    <div class="container2">
+        <h2 style="text-align:center">Edit Request</h2>
+        <div class="form-horizontal">
+
+            <hr class="style-seven" />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="ville_depart" value="@Model.ville_depart" name="ville_depart" required />
+                    <label for="ville_depart">Departure city :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.ville_depart, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="ville_arrive" value="@Model.ville_arrive" name="ville_arrive" required />
+                    <label for="ville_arrive">Arrival city :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.ville_arrive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="centered">
+                <div class="group" style="height:200px">
+                    <!--<input type="text" id="descr" name="descr" required />-->
+                    <label for="descr" style="position:initial" contenteditable="true">Description :</label>
+                    <textarea type="text" id="descr" name="descr" required placeholder="description ..." style="width:100%;height:150px;resize:none;border-radius:10px;outline-color:#2196F3">@Model.descr</textarea>
+                    @Html.ValidationMessageFor(model => model.descr, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="group">
+                <h4 style="color:#2196F3">User :</h4>
+                <div class="select" style="width:100%">
+
+                    @Html.DropDownList("id_users")
+                </div>
+                @Html.ValidationMessageFor(model => model.id_user, "", new { @class = "text-danger" })
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <a href="/demande" class="button4" style="background-color:#2B9CB8;float:right;margin-top:50px;">Back to List</a>
+                    <a onclick="document.getElementById('f').submit();" class="button4" style="background-color:#FFC107;cursor:pointer;width:30%;float:right;margin-top:50px;">Save</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

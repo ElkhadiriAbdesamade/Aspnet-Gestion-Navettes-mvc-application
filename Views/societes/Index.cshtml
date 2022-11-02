@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Gestion_Navettes.Models.societe>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container1">
+    <h2 style="text-align:center">societys</h2>
+
+    <hr class="style-seven" />
+
+    <p> <a href="/societes/ajouter" class="button4" style="background-color:#2B9CB8;float: right;margin-bottom:50px">Create New</a></p>
+
+    @{
+        if (Model.Count() == 0)
+        {
+            <div class="alert alert-info col-12" style=" margin-top: 100px;">
+                <strong>
+                    <h1 style="text-align: center;">No society Found!</h1>
+                </strong>
+            </div>
+        }
+        else
+        {
+            
+                var st = ViewBag.Notification;
+                if (st.ToString() != "")
+                {
+                    <div class="alert alert-danger" style=" position: absolute;" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Error!   </strong>@ViewBag.Notification
+
+                    </div>
+                }
+            
+
+            <table class="styled-table" width="800px">
+                <tr>
+                    <th>
+                        society Name
+                    </th>
+                    <th>
+                        society Address
+                    </th>
+                    <th>
+                        society City
+                    </th>
+                    <th style="text-align:center;">Action</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="active-row">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nom_soc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.adrs_soc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ville_soc)
+                        </td>
+                        <td align="center">
+                            <a href="/societes/details/@Html.DisplayFor(modelItem => item.id_soc)" class="view" title="View" data-toggle="tooltip"><i style="color: #03A9F4;" class="material-icons">&#xE417;</i></a>
+                            <a href="/societes/modifier/@Html.DisplayFor(modelItem => item.id_soc)" class="edit" title="Edit" data-toggle="tooltip"><i style="color: #FFC107;" class="material-icons">&#xE254;</i></a>
+                            <a href="societes/suppr/@Html.DisplayFor(modelItem => item.id_soc)" class="delete" title="Delete" data-toggle="tooltip"><i style="color: #C82333;" class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        }
+    }
+
+
+</div>

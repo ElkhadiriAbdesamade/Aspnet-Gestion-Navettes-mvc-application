@@ -1,0 +1,87 @@
+﻿@model Gestion_Navettes.Models.users
+
+@{
+    Layout = null;
+    ViewBag.Title = "Login";
+}
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - Login Form with floating placeholder and light button</title>
+
+    <link href="/Content/css/auth.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="login-box">
+        <h2>Login</h2>
+        @using (Html.BeginForm("Login", "auth", new { returnUrl = Request.QueryString["ReturnUrl"] }, FormMethod.Post, new { @style = "margin-bottom: 20px;", id = "f" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" ,@style="color:red"})
+            <p id='hideMe' class="visible">@ViewBag.lgn</p>
+            <p id='hideMe' class="visible">@ViewBag.psw</p>
+            <div class="user-box">
+                <input id="lgn" name="lgn" autocomplete="off" type="text" required />
+                <label>Username Or Email</label>
+                <p id='hideMe' class="visible">@Html.ValidationMessageFor(model => model.lgn, "", new { @class = "visible" })</p>
+            </div>
+            <div class="user-box">
+                <input id="psw" name="psw" autocomplete="off" type="password" required />
+                <span class="show-password" id="show-password">
+                    <svg width="18px" height="13px" viewBox="0 0 18 13 version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Visual-designs" stroke="none" stroke-width="1" fill-rule="evenodd">
+                            <g id="4.1_Update-Password" transform="translate(-481.000000, -418.000000)">
+                                <path d="M490,418 C485.909091,418 482.415455,420.544545 481,424.136364 C482.415455,427.728182 485.909091,430.272727 490,430.272727 C494.090909,430.272727 497.584545,427.728182 499,424.136364 C497.584545,420.544545 494.090909,418 490,418 L490,418 Z M490,428.227273 C487.741818,428.227273 485.909091,426.394545 485.909091,424.136364 C485.909091,421.878182 487.741818,420.045455 490,420.045455 C492.258182,420.045455 494.090909,421.878182 494.090909,424.136364 C494.090909,426.394545 492.258182,428.227273 490,428.227273 L490,428.227273 Z M490,421.681818 C488.641818,421.681818 487.545455,422.778182 487.545455,424.136364 C487.545455,425.494545 488.641818,426.590909 490,426.590909 C491.358182,426.590909 492.454545,425.494545 492.454545,424.136364 C492.454545,422.778182 491.358182,421.681818 490,421.681818 L490,421.681818 Z" id="Shape"></path>
+                            </g>
+                        </g>
+                    </svg>
+                </span>
+                    <label>Password</label>
+                    <p id='hideMe' class="visible">@Html.ValidationMessageFor(model => model.psw, "", new { @class = "visible" })</p>
+            </div>
+            <a href="#" onclick="document.getElementById('f').submit();">
+                <span></span>
+                Login
+            </a>
+            <a href="/register">
+                <span></span>
+                Sign up
+            </a>
+            <a href="/">
+                <span></span>
+                << Go Back To Home
+            </a>
+        }
+
+    </div>
+    <script>
+        var passwordInput = document.getElementById('psw');
+
+        var showPasswordBtn = document.getElementById('show-password');
+
+
+        showPasswordBtn.addEventListener("mousedown", showPassword);
+
+        showPasswordBtn.addEventListener("mouseup", hidePassword);
+
+        function showPassword() {
+            console.log('show');
+            passwordInput.type = 'text';
+        }
+
+        function hidePassword() {
+            console.log('hide');
+            passwordInput.type = 'password';
+        }
+
+    </script>
+
+</body>
+</html>

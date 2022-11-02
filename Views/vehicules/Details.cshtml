@@ -1,0 +1,60 @@
+﻿@model Gestion_Navettes.Models.vehicule
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container1">
+    <h2 style="text-align:center">Vehicule Details</h2>
+
+    <hr class="style-seven" />
+    <dl>
+        <dt>
+            vehicles Name :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_vh)
+        </dd>
+
+        <dt>
+            vehicles capacity :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.capacite_vh)
+        </dd>
+
+        <dt>
+            vehicles brand :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.marque_vh)
+        </dd>
+
+        <dt>
+            vehicles model :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modele_vh)
+        </dd>
+
+        <dt>
+            registration number :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.immatricul_vh)
+        </dd>
+
+    </dl>
+
+    <p>
+        <a href="/Vehicules/modifier/@Html.DisplayFor(model => model.id_vh)" class="button4" style="background-color:#FFC107;">Edit</a>
+        |
+        <a href="/Vehicules" class="button4" style="background-color:#2B9CB8;">Back to List</a>
+    </p>
+</div>
+

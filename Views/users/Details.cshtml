@@ -1,0 +1,67 @@
+﻿@model Gestion_Navettes.Models.users
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container1">
+    <h2 style="text-align:center">Users Details</h2>
+
+    <hr class="style-seven" />
+    <dl>
+        <dt>
+            User Name :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_complet)
+        </dd>
+
+        <dt>
+            User Email :
+        </dt>
+
+        <dd>
+            @Model.email
+        </dd>
+
+        <dt>
+            User Phone :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tele)
+        </dd>
+
+        <dt>
+            User Login :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lgn)
+        </dd>
+
+        <dt>
+            User Password :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.psw)
+        </dd>
+
+        <dt>
+            User Role :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.roles)
+        </dd>
+
+    </dl>
+    <p>
+        <a href="/users/modifier/@Html.DisplayFor(model => model.id_user)" class="button4" style="background-color:#FFC107;">Edit</a>
+        |
+        <a href="/users" class="button4" style="background-color:#2B9CB8;">Back to List</a>
+    </p>
+
+</div>

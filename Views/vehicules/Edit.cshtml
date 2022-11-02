@@ -1,0 +1,99 @@
+﻿@model Gestion_Navettes.Models.vehicule
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+
+<form action="/Vehicules/modifier/@Html.DisplayFor(model => model.id_vh)" id="f" method="post" novalidate="novalidate">
+    @Html.AntiForgeryToken()
+
+    <div class="container2">
+        <h2 style="text-align:center">Edit Vehicule</h2>
+        <div class="form-horizontal">
+
+            <hr class="style-seven" />
+
+
+
+
+
+            @{
+                var st = ViewBag.Notification;
+                if (st.ToString() != "")
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Error!   </strong>@ViewBag.Notification
+
+                    </div>
+                }
+            }
+
+
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id_vh)
+
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="nom_vh" name="nom_vh" type="text" value="@Html.DisplayFor(model => model.nom_vh)" required="required" />
+                    <label for="nom_soc">Vehicule Name :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.nom_vh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="capacite_vh" name="capacite_vh" type="number" value="@Html.DisplayFor(model => model.capacite_vh)" required="required" />
+                    <label for="capacite_vh">vehicles capacity :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.capacite_vh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="marque_vh" name="marque_vh" type="text" value="@Html.DisplayFor(model => model.marque_vh)" required="required" />
+                    <label for="marque_vh">vehicles brand :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.marque_vh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="modele_vh" name="modele_vh" type="text" value="@Html.DisplayFor(model => model.modele_vh)" required="required" />
+                    <label for="modele_vh">vehicles model :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.modele_vh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="immatricul_vh" name="immatricul_vh" type="text" value="@Html.DisplayFor(model => model.immatricul_vh)" required="required" />
+                    <label for="immatricul_vh">registration number :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.immatricul_vh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <a href="/Vehicules" class="button4" style="background-color:#2B9CB8;float:right;margin-top:50px;">Back to List</a>
+                    <a onclick="document.getElementById('f').submit();" class="button4" style="background-color:#FFC107;cursor:pointer;width:30%;float:right;margin-top:50px;">Save</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

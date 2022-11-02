@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Gestion_Navettes.Models.demande_abn>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container1">
+    <h2 style="text-align:center">Requests</h2>
+
+    <hr class="style-seven" />
+
+
+    
+
+    @{
+        if (Model.Count() == 0)
+        {
+            <div class="alert alert-info col-12" style=" margin-top: 100px;">
+                <strong>
+                    <h1 style="text-align: center;">No Request Found!</h1>
+                </strong>
+            </div>
+        }
+        else
+        {
+            <table class="styled-table" width="800px">
+                <tr>
+                    <th>
+                        Departure city
+                    </th>
+                    <th>
+                        Arrival city
+                    </th>
+                    <th>
+                        Departure Date
+                    </th>
+                    <th>
+                        Arrival Date
+                    </th>
+
+                    <th>
+                        Number Of Requests
+                    </th>
+
+                    @{
+                        String role = Gestion_Navettes.MyRoleProvider.Getrole.getrole(HttpContext.Current.User.Identity.Name);
+                        if (User.Identity.IsAuthenticated && role == "Admin")
+                        {
+                            <th>Validate</th>
+                            <th>Action</th>
+                        }
+
+                    }
+                   
+                </tr>
+
+                @foreach (var item in Model)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ville_depart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ville_arrive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date_depart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date_arrive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nbr_dm)
+                </td>
+                
+                @{                    
+                    if (User.Identity.IsAuthenticated && role == "Admin")
+                    {
+                        <td>
+                            <form action="/ajouter" id="@item.id_dm" method="get" novalidate="novalidate" enctype="multipart/form-data">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="ville_depart" value="@item.ville_depart" />
+                                <input type="hidden" name="ville_arrive" value="@item.ville_arrive" />
+                                <input type="hidden" name="date_depart" value="@item.date_arrive" />
+                                <input type="hidden" name="date_arrive" value="@item.date_arrive" />                     
+                                <a onclick="document.getElementById('@item.id_dm').submit();" href="#" class="button4" style="background-color:#2B9CB8;">Create Subscription</a>
+                            </form>
+                        </td>}
+                    }
+                        <td>
+                            @{                    
+                                if (User.Identity.IsAuthenticated && role == "Admin")
+                                {
+                            
+                                    <a href="/demande/suppr/@Html.DisplayFor(modelItem => item.id_dm)" class="delete" title="Delete" data-toggle="tooltip"><i style="color: #C82333;" class="material-icons">&#xE872;</i></a>
+                                }
+                             }
+                            
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        }
+    }
+
+
+</div>

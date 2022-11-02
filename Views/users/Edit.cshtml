@@ -1,0 +1,109 @@
+﻿@model Gestion_Navettes.Models.users
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+
+
+<form action="/users/modifier/@Html.DisplayFor(model => model.id_user)" id="f" method="post" novalidate="novalidate">
+    @Html.AntiForgeryToken()
+
+    <div class="container2">
+        <h2 style="text-align:center">Edit Users</h2>
+        <div class="form-horizontal">
+
+            <hr class="style-seven" />
+
+
+            @{
+                var st = ViewBag.Notification;
+                if (st.ToString() != "")
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Error!   </strong>@ViewBag.Notification
+
+                    </div>
+                }
+            }
+
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id_user)
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="nom_complet" name="nom_complet" value="@Html.DisplayFor(model => model.nom_complet)" required="required" />
+                    <label for="nom_complet">User Name :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.nom_complet, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="email" name="email" value="@Model.email" required="required" />
+                    <label for="email">User Email :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="tele" name="tele" value="@Html.DisplayFor(model => model.tele)" required="required" />
+                    <label for="tele">User Phone :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.tele, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="lgn" name="lgn" value="@Html.DisplayFor(model => model.lgn)" required="required" />
+                    <label for="lgn">User Login :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.lgn, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="centered">
+                <div class="group">
+                    <input type="text" id="psw" name="psw" value="@Html.DisplayFor(model => model.psw)" required="required" />
+                    <label for="lgn">User PassWord :</label>
+                    <div class="bar"></div>
+                    @Html.ValidationMessageFor(model => model.psw, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="group">
+
+                <h4 style="color:#2196F3">User Role :</h4>
+                <p id='hideMe' class="visible">@ViewBag.Notification</p>
+                <div class="select" style="width:100%">
+                    <select name="roles" id="roles" value="@Html.DisplayFor(model => model.roles)" required="required">
+                        <option selected disabled value="">Choose an Role</option>
+                        <option value="User">User</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+
+                    @Html.ValidationMessageFor(model => model.roles, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <a href="/users" class="button4" style="background-color:#2B9CB8;float:right;margin-top:50px;">Back to List</a>
+                    <a onclick="document.getElementById('f').submit();" class="button4" style="background-color:#FFC107;cursor:pointer;width:30%;float:right;margin-top:50px;">Save</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+       
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

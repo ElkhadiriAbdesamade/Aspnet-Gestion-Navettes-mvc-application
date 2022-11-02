@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4b04b44cb469444aa76026ff452496d3" Name="Diagram1">
+        <EntityTypeShape EntityType="Gestion_NavettesModel.abonnement" Width="1.5" PointX="6.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gestion_NavettesModel.demande_abn" Width="1.5" PointX="4.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gestion_NavettesModel.demande_user" Width="1.5" PointX="7" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gestion_NavettesModel.reservation" Width="1.5" PointX="9.375" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gestion_NavettesModel.societe" Width="1.5" PointX="3.375" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gestion_NavettesModel.users" Width="1.5" PointX="9.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Gestion_NavettesModel.vehicule" Width="1.5" PointX="4.125" PointY="0.625" IsExpanded="true" />
+        <AssociationConnector Association="Gestion_NavettesModel.FK__abonnemen__id_so__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="Gestion_NavettesModel.FK__abonnemen__id_vh__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="Gestion_NavettesModel.FK__reservati__id_ab__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="Gestion_NavettesModel.FK__demande_u__id_dm__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="Gestion_NavettesModel.FK__demande_u__id_us__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="Gestion_NavettesModel.FK__reservati__id_us__3A81B327" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
